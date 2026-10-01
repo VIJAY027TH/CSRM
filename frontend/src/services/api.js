@@ -1,7 +1,13 @@
 import axios from 'axios';
 
+// In production (Railway), VITE_API_BASE_URL is injected at build time.
+// In local dev, it is undefined and we fall back to '/api' (handled by Vite proxy).
+const BASE_URL = import.meta.env.VITE_API_BASE_URL
+  ? `${import.meta.env.VITE_API_BASE_URL}/api`
+  : '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
